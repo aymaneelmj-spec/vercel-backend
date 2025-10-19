@@ -546,112 +546,6 @@ def get_dashboard_stats():
         return jsonify({'error': 'Failed to get dashboard stats'}), 500
 
 
-# ============ ROUTES ============
-
-@app.route('/', methods=['GET'])
-def index():
-    return jsonify({
-        'message': 'Happy Deal Transit ERP API',
-        'status': 'online',
-        'version': '4.0-PRODUCTION',
-        'timestamp': datetime.now().isoformat()
-    })
-
-@app.route('/api/test', methods=['GET', 'OPTIONS'])
-def test():
-    return jsonify({
-        'message': 'API is working!',
-        'status': 'success',
-        'version': '4.0-PRODUCTION',
-        'cors_fixed': True,
-        'timestamp': datetime.now().isoformat()
-    })
-
-@app.route('/api/health', methods=['GET'])
-def health():
-    try:
-        db.session.execute('SELECT 1')
-        db_status = 'healthy'
-    except Exception as e:
-        db_status = f'error: {str(e)}'
-    
-    return jsonify({
-        'status': 'healthy' if db_status == 'healthy' else 'degraded',
-        'database': db_status,
-        'timestamp': datetime.now().isoformat()
-    })
-
-@app.route('/api/init-db', methods=['GET', 'POST'])
-def initialize_database():
-    """Manual database initialization endpoint"""
-    try:
-        # Create all tables
-        db.create_all()
-        
-        # Check if company exists
-        existing_company = Company.query.first()
-        if existing_company:
-            return jsonify({
-                'message': 'Database already initialized',
-                'status': 'success',
-                'companies': Company.query.count(),
-                'users': User.query.count()
-            })
-        
-        # Create default company
-        company = Company(
-            name='Happy Deal Transit',
-            address='9, Plateaux ESSALAM, Casablanca',
-            phone='+212 5 22 20 85 94',
-            email='contact@hdtransit.com',
-            base_currency='MAD',
-            status='active'
-        )
-        db.session.add(company)
-        db.session.flush()
-        
-        # Create admin user
-        admin_user = User(
-            name='Admin User',
-            email='admin@hdtransit.com',
-            role='admin',
-            company_id=company.id,
-            status='active'
-        )
-        admin_user.set_password('admin123')
-        db.session.add(admin_user)
-        
-        # Create regular user
-        regular_user = User(
-            name='User Test',
-            email='user@hdtransit.com',
-            role='user',
-            company_id=company.id,
-            status='active'
-        )
-        regular_user.set_password('user123')
-        db.session.add(regular_user)
-        
-        db.session.commit()
-        
-        return jsonify({
-            'message': 'Database initialized successfully!',
-            'status': 'success',
-            'company_id': company.id,
-            'admin_email': 'admin@hdtransit.com',
-            'admin_password': 'admin123',
-            'user_email': 'user@hdtransit.com',
-            'user_password': 'user123'
-        }), 201
-        
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({
-            'error': str(e),
-            'message': 'Failed to initialize database',
-            'traceback': traceback.format_exc()
-        }), 500
-
 # ============ AUTHENTICATION ============
 
 @app.route('/api/login', methods=['POST', 'OPTIONS'])
@@ -1731,5 +1625,6 @@ if __name__ == '__main__':
     print("=" * 60)
     print("🌐 Running on: http://localhost:5000")
     print("=" * 60)
-    app.run(host='0.0.0.0', port=5000, debug=True)#   D e p l o y m e n t   t r i g g e r  
+    app.run(host='0.0.0.0', port=5000, debug=True)#   D e p l o y m e n t   t r i g g e r 
+ 
  

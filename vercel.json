@@ -11,10 +11,5 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ],
-  "env": {
-    "SECRET_KEY": "@secret_key",
-    "JWT_SECRET_KEY": "@jwt_secret_key",
-    "DATABASE_URL": "@database_url"
-  }
+  ]
 }
