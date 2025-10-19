@@ -1,0 +1,15 @@
+{
+  "company_name": "HAPPY DEAL TRANSIT",
+  "address": "9, Plateaux ESSALAM, BD Sidi Mohammed Ben Abdallah, 2ème Etage – Bourgogne, CP: 20165 Casablanca - Maroc",
+  "tax_id": "12345678901234",
+  "rc": "123456",
+  "cnss": "1234567",
+  "ice": "001234567890123",
+  "phone": "+212 5 22 20 85 94 / +212 6 61 99 97 48",
+  "fax": "+212 5 22 20 90 46",
+  "gsm": "+212 6 61 26 57 06",
+  "email": "a.mouaad@hdtransit.com",
+  "website": "www.hdtransit.com",
+  "logo_path": "./config/AmalJobLogo.png",
+  "bank_account": "BMCE Bank: 011 123 4567890123 45"
+}
