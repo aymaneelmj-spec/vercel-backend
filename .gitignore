@@ -1,1 +1,11 @@
 .vercel
+__pycache__/
+*.pyc
+*.pyo
+*.db
+instance/
+.env
+venv/
+hdtransit.db
+*.sqlite
+*.sqlite3
